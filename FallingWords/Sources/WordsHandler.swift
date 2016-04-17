@@ -9,13 +9,23 @@
 import Foundation
 import SwiftyJSON
 
-class WordsHandler {
+protocol WordsHandlerType {
+    func wordsWithLanguageOne(languageOne: WordLanguage, andLanguageTwo languageTwo: WordLanguage) -> [TranslatedWordType]
+}
 
-    private class func allAvailableWords() -> [Word] {
+class WordsHandler : WordsHandlerType {
+
+    let dataHandler : DataHandlerType
+
+    init(dataHandler: DataHandlerType) {
+        self.dataHandler = dataHandler
+    }
+
+    private func allAvailableWords() -> [TranslatedWordType] {
         do {
-            let json = try DataHandler.jsonDataFromFileNamed("words")
+            let json = try dataHandler.jsonDataFromFileNamed("words")
 
-            var words = [Word]()
+            var words = [TranslatedWordType]()
             for (_,wordJson) in json {
                 let word = Word(translationsJson: wordJson)
                 words.append(word)
@@ -26,8 +36,8 @@ class WordsHandler {
         }
     }
 
-    class func wordsWithLanguageOne(languageOne: WordLanguage, andLanguageTwo languageTwo: WordLanguage) -> [Word] {
-        let words = WordsHandler.allAvailableWords()
+    func wordsWithLanguageOne(languageOne: WordLanguage, andLanguageTwo languageTwo: WordLanguage) -> [TranslatedWordType] {
+        let words : [TranslatedWordType] = allAvailableWords()
         return words.filter({ (word) -> Bool in
             if let _ = word[languageOne], let _ = word[languageTwo] {
                 return true

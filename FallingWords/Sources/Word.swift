@@ -14,7 +14,11 @@ enum WordLanguage : String {
     case Spanish = "text_spa"
 }
 
-class Word {
+protocol TranslatedWordType {
+    subscript(language: WordLanguage) -> String? { get }
+}
+
+class Word : TranslatedWordType {
     private let translations : [WordLanguage : String]
 
     subscript(language: WordLanguage) -> String? {

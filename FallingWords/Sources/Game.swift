@@ -9,30 +9,52 @@
 import Foundation
 import RxSwift
 
-private let DefaultRoundDuration = 5
-private let CorrectWordScore = 5
-
 enum RoundResult {
     case Won
     case Lost
 }
 
-class Game {
+protocol GameWithRoundsType {
+    var score : Variable<Int> { get }
+    var currentRound : Variable<RoundType?> { get }
 
-    private let words : [Word]
+    var didRoundEndWithResultObservable : Observable<RoundResult> { get }
+    var didGameEndWithScoreObservable : Observable<Int> { get }
+
+    func start()
+    func endRoundWithInput(input: RoundInput)
+}
+
+protocol HasCountdownType {
+    var countdown : CountdownType { get }
+}
+
+class Game : GameWithRoundsType, HasCountdownType {
+
+    private static let defaultRoundDuration = 5
+    private static let correctWordScore = 5
+
+    private let words : [TranslatedWordType]
     private let languageOne : WordLanguage
     private let languageTwo : WordLanguage
-    
-    let score : Variable<Int>
-    let countdown : Countdown
-    private(set) var currentRound : Variable<Round?>
 
-    let roundEndedSubject : PublishSubject<RoundResult>
-    let gameOverSubject : PublishSubject<Int>
+    let score : Variable<Int>
+    let countdown : CountdownType
+    let currentRound : Variable<RoundType?>
+
+    private let roundEndedSubject : PublishSubject<RoundResult>
+    private let gameOverSubject : PublishSubject<Int>
+
+    lazy private(set) var didRoundEndWithResultObservable : Observable<RoundResult> = {
+        return self.roundEndedSubject.asObservable()
+    }()
+    lazy private(set) var didGameEndWithScoreObservable : Observable<Int> = {
+        return self.gameOverSubject.asObservable()
+    }()
     
     private let disposeBag = DisposeBag()
     
-    init(languageOne: WordLanguage, languageTwo:WordLanguage, roundDuration:Int = DefaultRoundDuration) {
+    init(wordsHandler: WordsHandlerType, languageOne: WordLanguage, languageTwo:WordLanguage, roundDuration:Int = Game.defaultRoundDuration) {
 
         self.gameOverSubject = PublishSubject<Int>()
         self.roundEndedSubject = PublishSubject<RoundResult>()
@@ -40,14 +62,26 @@ class Game {
         self.languageOne = languageOne
         self.languageTwo = languageTwo
         self.countdown = Countdown(duration: roundDuration)
-        self.words = WordsHandler.wordsWithLanguageOne(languageOne, andLanguageTwo: languageTwo)
+
+        self.words = wordsHandler.wordsWithLanguageOne(languageOne, andLanguageTwo: languageTwo)
         self.score = Variable<Int>(0)
-        self.currentRound = Variable<Round?>(nil)
+        self.currentRound = Variable<RoundType?>(nil)
 
         self.setRules()
     }
 
-    func setRules() {
+    func start() {
+        self.score.value = 0
+        self.startNewRound()
+    }
+
+    func endRoundWithInput(input: RoundInput) {
+        let result = roundResultWithInput(input)
+        self.updateScoreWithResult(result)
+        self.roundEndedSubject.onNext(result)
+    }
+
+    private func setRules() {
         self.bindStartNextRoundToObservable(roundEndedWithWonResultObservable())
         self.bindGameOverToObservable(countdownEndObservable())
         self.bindGameOverToObservable(roundEndedWithLostResultObservable())
@@ -65,17 +99,6 @@ class Game {
         }.addDisposableTo(disposeBag)
     }
 
-    func start() {
-        self.score.value = 0
-        self.startNewRound()
-    }
-
-    func endRoundWithInput(input: RoundInput) {
-        let result = roundResultWithInput(input)
-        self.updateScoreWithResult(result)
-        self.roundEndedSubject.onNext(result)
-    }
-
     private func startNewRound() {
         let newRound = Round(randomFromWords: words, forLanguageOne: languageOne, andLanguageTwo: languageTwo)
         self.currentRound.value = newRound
@@ -90,7 +113,7 @@ class Game {
     private func updateScoreWithResult(result: RoundResult) {
         switch result {
         case .Won:
-            score.value += CorrectWordScore
+            score.value += Game.correctWordScore
         case .Lost:
             break
         }
@@ -99,28 +122,28 @@ class Game {
     // MARK: Helpers
 
     private func countdownEndObservable() -> Observable<Bool> {
-        return self.countdown.seconds.asObservable().filter({ (seconds) -> Bool in
+        return self.countdown.secondsLeft.asObservable().filter { seconds -> Bool in
             return seconds == 0
-        }).map({ (_) -> Bool in
+        }.map { (_) -> Bool in
             return true
-        })
+        }
     }
     private func roundEndedWithLostResultObservable() -> Observable<Bool> {
-        return self.roundEndedSubject.asObservable().filter({ (roundResult) -> Bool in
-            return roundResult == .Lost
-        }).map({ (_) -> Bool in
+        return self.didRoundEndWithResultObservable.filter { roundResult -> Bool in
+            return roundResult == RoundResult.Lost
+        }.map { (_) -> Bool in
             return true
-        })
+        }
     }
     private func roundEndedWithWonResultObservable() -> Observable<Bool> {
-        return self.roundEndedSubject.asObservable().filter({ (roundResult) -> Bool in
+        return self.didRoundEndWithResultObservable.asObservable().filter { roundResult -> Bool in
             return roundResult == .Won
-        }).map({ (_) -> Bool in
+        }.map { (_) -> Bool in
             return true
-        })
+        }
     }
 
-    private func roundResultWithInput(input: RoundInput) -> RoundResult{
+    private func roundResultWithInput(input: RoundInput) -> RoundResult {
         if input == self.currentRound.value?.expectedInput {
             return .Won
         } else {

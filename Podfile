@@ -4,7 +4,7 @@ use_frameworks!
 target "FallingWords" do
   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'SnapKit'
-  pod 'RxSwift', '~> 2.0.0-beta'
-  pod 'RxCocoa', '~> 2.0.0-beta'
-  pod 'RxBlocking', '~> 2.0.0-beta'
+  pod 'RxSwift', '~> 2.4'
+  pod 'RxCocoa', '~> 2.4'
+  pod 'RxBlocking', '~> 2.4'
 end

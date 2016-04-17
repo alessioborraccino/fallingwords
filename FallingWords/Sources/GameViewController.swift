@@ -11,14 +11,9 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-enum RoundInput {
-    case CorrectButtonTapped
-    case WrongButtonTapped
-}
-
 class GameViewController: UIViewController {
 
-    private var gamePresenter : protocol<GameViewInteractor,GameViewModelBinder>?
+    private var gamePresenter : protocol<GameViewInteractorType,GameViewModelType>?
 
     private lazy var startButton : UIButton = {
         let button = UIButton.mainGameButton()
@@ -70,41 +65,41 @@ class GameViewController: UIViewController {
 
         startButton.snp_makeConstraints { (make) -> Void in
             make.center.equalTo(view.snp_center)
-            make.size.equalTo(CGSize(width: UIUnit * 60, height: UIUnit * 11))
+            make.size.equalTo(CGSize(width: UI.Unit * 60, height: UI.Unit * 11))
         }
 
         hudView.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(view.snp_left).offset(UIDefaultPadding)
-            make.right.equalTo(view.snp_right).offset(-UIDefaultPadding)
-            make.top.equalTo(view.snp_top).offset(UIDefaultPadding)
-            make.height.equalTo(UIUnit*8)
+            make.left.equalTo(view.snp_left).offset(UI.DefaultPadding)
+            make.right.equalTo(view.snp_right).offset(-UI.DefaultPadding)
+            make.top.equalTo(view.snp_top).offset(UI.DefaultPadding)
+            make.height.equalTo(UI.Unit*8)
         }
 
         wordView.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(view.snp_left).offset(UIDefaultPadding)
-            make.right.equalTo(view.snp_right).offset(-UIDefaultPadding)
-            make.top.equalTo(hudView.snp_bottom).offset(UIDefaultPadding)
-            make.height.equalTo(UIUnit*8)
+            make.left.equalTo(view.snp_left).offset(UI.DefaultPadding)
+            make.right.equalTo(view.snp_right).offset(-UI.DefaultPadding)
+            make.top.equalTo(hudView.snp_bottom).offset(UI.DefaultPadding)
+            make.height.equalTo(UI.Unit*8)
         }
 
         gameView.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(view.snp_left).offset(UIDefaultPadding)
-            make.right.equalTo(view.snp_right).offset(-UIDefaultPadding)
-            make.top.equalTo(wordView.snp_bottom).offset(UIDefaultPadding)
-            make.bottom.equalTo(correctButton.snp_top).offset(-UIDefaultPadding)
+            make.left.equalTo(view.snp_left).offset(UI.DefaultPadding)
+            make.right.equalTo(view.snp_right).offset(-UI.DefaultPadding)
+            make.top.equalTo(wordView.snp_bottom).offset(UI.DefaultPadding)
+            make.bottom.equalTo(correctButton.snp_top).offset(-UI.DefaultPadding)
         }
 
         correctButton.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(view.snp_left).offset(UIDefaultPadding)
-            make.bottom.equalTo(view.snp_bottom).offset(-UIDefaultPadding)
+            make.left.equalTo(view.snp_left).offset(UI.DefaultPadding)
+            make.bottom.equalTo(view.snp_bottom).offset(-UI.DefaultPadding)
             make.right.equalTo(view.snp_centerX)
-            make.height.equalTo(UIUnit*16)
+            make.height.equalTo(UI.Unit*16)
         }
 
         wrongButton.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(correctButton.snp_right).offset(UIDefaultPadding)
-            make.bottom.equalTo(view.snp_bottom).offset(-UIDefaultPadding)
-            make.right.equalTo(view.snp_right).offset(-UIDefaultPadding)
+            make.left.equalTo(correctButton.snp_right).offset(UI.DefaultPadding)
+            make.bottom.equalTo(view.snp_bottom).offset(-UI.DefaultPadding)
+            make.right.equalTo(view.snp_right).offset(-UI.DefaultPadding)
             make.height.equalTo(correctButton.snp_height)
         }
     }
@@ -125,26 +120,26 @@ class GameViewController: UIViewController {
 
     // MARK: Interactor and button events (push)
 
-    private func bindInteractor(interactor: GameViewInteractor) {
+    private func bindInteractor(interactor: GameViewInteractorType) {
         setStartButtonTapEventWithInteractor(interactor)
         setCorrectButtonTapEventWithInteractor(interactor)
         setWrongButtonTapEventWithInteractor(interactor)
     }
 
-    private func setStartButtonTapEventWithInteractor(interactor: GameViewInteractor) {
+    private func setStartButtonTapEventWithInteractor(interactor: GameViewInteractorType) {
         startButton.rx_tap.subscribeNext { [unowned self] () -> Void in
             self.setInGameLayout()
             interactor.tappedStartButton()
         }.addDisposableTo(disposeBag)
     }
 
-    private func setCorrectButtonTapEventWithInteractor(interactor: GameViewInteractor) {
+    private func setCorrectButtonTapEventWithInteractor(interactor: GameViewInteractorType) {
         correctButton.rx_tap.subscribeNext { () -> Void in
             interactor.tappedGameButtonWithInput(.CorrectButtonTapped)
         }.addDisposableTo(disposeBag)
     }
 
-    private func setWrongButtonTapEventWithInteractor(interactor: GameViewInteractor) {
+    private func setWrongButtonTapEventWithInteractor(interactor: GameViewInteractorType) {
         wrongButton.rx_tap.subscribeNext { () -> Void in
             interactor.tappedGameButtonWithInput(.WrongButtonTapped)
         }.addDisposableTo(disposeBag)
@@ -152,7 +147,7 @@ class GameViewController: UIViewController {
 
     // MARK: ViewModel and Game events
 
-    private func bindViewModel(viewModel: GameViewModelBinder) {
+    private func bindViewModel(viewModel: GameViewModelType) {
         bindViewModelToHUDScore(viewModel)
         bindViewModelToHUDCountdown(viewModel)
         bindViewModelToWordLabels(viewModel)
@@ -161,19 +156,19 @@ class GameViewController: UIViewController {
         observeViewModelDidFinishRoundEvent(viewModel)
     }
 
-    private func bindViewModelToHUDCountdown(viewModel: GameViewModelBinder) {
+    private func bindViewModelToHUDCountdown(viewModel: GameViewModelType) {
         viewModel.countDownText().observeOn(MainScheduler.instance).subscribeNext { [unowned self] (secondString) -> Void in
             self.hudView.updateCountdownLabelWithString(secondString)
         }.addDisposableTo(disposeBag)
     }
 
-    private func bindViewModelToHUDScore(viewModel: GameViewModelBinder) {
+    private func bindViewModelToHUDScore(viewModel: GameViewModelType) {
         viewModel.scoreText().observeOn(MainScheduler.instance).subscribeNext { [unowned self] (scoreString) -> Void in
             self.hudView.updateScoreLabelWithString(scoreString)
         }.addDisposableTo(disposeBag)
     }
 
-    private func bindViewModelToWordLabels(viewModel: GameViewModelBinder) {
+    private func bindViewModelToWordLabels(viewModel: GameViewModelType) {
         Observable.combineLatest(viewModel.currentWordToGuess(),
             viewModel.currentOption()
             ) { (currentWordToGuess, currentOption) -> (String, String) in
@@ -185,13 +180,13 @@ class GameViewController: UIViewController {
         }.addDisposableTo(disposeBag)
     }
 
-    private func observeViewModelNewRoundEvent(viewModel: GameViewModelBinder) {
+    private func observeViewModelNewRoundEvent(viewModel: GameViewModelType) {
         viewModel.didStartNewRoundEvent().observeOn(MainScheduler.instance).subscribeNext { [unowned self] (_) -> Void in
             self.gameView.startFallingLabelAnimationWithDuration(Double(viewModel.roundDuration()))
         }.addDisposableTo(disposeBag)
     }
 
-    private func observeViewModelGameOverEvent(viewModel: GameViewModelBinder) {
+    private func observeViewModelGameOverEvent(viewModel: GameViewModelType) {
         viewModel.gameOverEventWithScore().observeOn(MainScheduler.instance).subscribeNext { [unowned self] (_) -> Void in
             self.startButton.setTitle("Game over! Tap to restart", forState: .Normal)
             self.gameView.stopFallingLabelAnimation()
@@ -199,7 +194,7 @@ class GameViewController: UIViewController {
         }.addDisposableTo(disposeBag)
     }
 
-    private func observeViewModelDidFinishRoundEvent(viewModel: GameViewModelBinder) {
+    private func observeViewModelDidFinishRoundEvent(viewModel: GameViewModelType) {
         viewModel.didFinishRoundEventDidWin().observeOn(MainScheduler.instance).subscribeNext { [unowned self] (didWin) -> Void in
             if didWin {
                 self.gameView.blinkWithColor(UIColor.greenColor())

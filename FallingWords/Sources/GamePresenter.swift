@@ -8,18 +8,34 @@
 
 import RxSwift
 
-class GamePresenter : GameViewModelBinder, GameViewInteractor {
+protocol GameViewModelType {
+    func scoreText() -> Observable<String>
+    func countDownText() -> Observable<String>
+    func didStartNewRoundEvent() -> Observable<Bool>
+    func didFinishRoundEventDidWin() -> Observable<Bool>
+    func gameOverEventWithScore() -> Observable<Int>
+    func currentWordToGuess() -> Observable<String>
+    func currentOption() -> Observable<String>
+    func roundDuration() -> Int
+}
 
-    private let game : Game
+protocol GameViewInteractorType {
+    func tappedStartButton()
+    func tappedGameButtonWithInput(input: RoundInput)
+}
 
-    init(languageOne: WordLanguage, languageTwo:WordLanguage) {
-        self.game = Game(languageOne: languageOne, languageTwo: languageTwo)
+class GamePresenter : GameViewModelType, GameViewInteractorType {
+
+    private let game : protocol<GameWithRoundsType, HasCountdownType>
+
+    init(languageOne: WordLanguage, languageTwo:WordLanguage, wordsHandler: WordsHandlerType = WordsHandler(dataHandler: DataHandler())) {
+        self.game = Game(wordsHandler: wordsHandler, languageOne: languageOne, languageTwo: languageTwo)
     }
 
-    // MARK: From Game To ViewController (ViewModelBinder)
+    // MARK: From Game To ViewController (ViewModel)
 
     func scoreText() -> Observable<String> {
-        return game.countdown.seconds.asObservable().map { (seconds) -> String in
+        return game.countdown.secondsLeft.asObservable().map { (seconds) -> String in
             return "Time Left: " + String(seconds)
         }
     }
@@ -39,7 +55,7 @@ class GamePresenter : GameViewModelBinder, GameViewInteractor {
     }
 
     func didFinishRoundEventDidWin() -> Observable<Bool> {
-        return game.roundEndedSubject.asObservable().map({ (result) -> Bool in
+        return game.didRoundEndWithResultObservable.asObservable().map({ (result) -> Bool in
             switch result {
             case .Won:
                 return true
@@ -50,7 +66,7 @@ class GamePresenter : GameViewModelBinder, GameViewInteractor {
     }
 
     func gameOverEventWithScore() -> Observable<Int> {
-        return game.gameOverSubject.asObservable()
+        return game.didGameEndWithScoreObservable
     }
     
     func currentWordToGuess() -> Observable<String> {

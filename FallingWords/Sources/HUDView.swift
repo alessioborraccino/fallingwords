@@ -45,12 +45,12 @@ class HUDView : UIView {
     private func setDefaultConstraints() {
         countdownLabel.snp_makeConstraints { (make) -> Void in
             make.centerY.equalTo(self.snp_centerY)
-            make.left.equalTo(self.snp_left).offset(UIDefaultPadding)
+            make.left.equalTo(self.snp_left).offset(UI.DefaultPadding)
         }
 
         scoreLabel.snp_makeConstraints { (make) -> Void in
             make.centerY.equalTo(self.snp_centerY)
-            make.right.equalTo(self.snp_right).offset(-UIDefaultPadding)
+            make.right.equalTo(self.snp_right).offset(-UI.DefaultPadding)
         }
     }
 

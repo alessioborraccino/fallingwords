@@ -8,6 +8,8 @@
 
 import UIKit
 
-let UIUnit : CGFloat = 4.0
-let UIDefaultPadding : CGFloat = UIUnit*3
+struct UI {
+    static let Unit : CGFloat = 4.0
+    static let DefaultPadding : CGFloat = UI.Unit * 3
+}
 

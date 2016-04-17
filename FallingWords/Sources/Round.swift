@@ -8,7 +8,18 @@
 
 import Foundation
 
-class Round {
+enum RoundInput {
+    case CorrectButtonTapped
+    case WrongButtonTapped
+}
+
+protocol RoundType {
+    var stringToGuess : String { get }
+    var optionStringGiven : String { get }
+    var expectedInput : RoundInput { get }
+}
+
+class Round : RoundType {
 
     let stringToGuess: String
     let optionStringGiven: String
@@ -20,7 +31,7 @@ class Round {
         self.expectedInput = expectedInput
     }
 
-    convenience init?(randomFromWords words: [Word], forLanguageOne languageOne: WordLanguage, andLanguageTwo languageTwo: WordLanguage) {
+    convenience init?(randomFromWords words: [TranslatedWordType], forLanguageOne languageOne: WordLanguage, andLanguageTwo languageTwo: WordLanguage) {
 
         if let wordTuple = words.getRandomTwoElements() {
             if let stringToGuess = wordTuple.first[languageOne], correctOption = wordTuple.first[languageTwo], wrongOption = wordTuple.second[languageTwo] {

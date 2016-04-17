@@ -15,8 +15,6 @@
 		AA73C52F1C4B85C100470B6C /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C51F1C4B85C100470B6C /* GamePresenter.swift */; };
 		AA73C5301C4B85C100470B6C /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C5201C4B85C100470B6C /* GameView.swift */; };
 		AA73C5311C4B85C100470B6C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C5211C4B85C100470B6C /* GameViewController.swift */; };
-		AA73C5321C4B85C100470B6C /* GameViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C5221C4B85C100470B6C /* GameViewInteractor.swift */; };
-		AA73C5331C4B85C100470B6C /* GameViewModelBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C5231C4B85C100470B6C /* GameViewModelBinder.swift */; };
 		AA73C5341C4B85C100470B6C /* HUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C5241C4B85C100470B6C /* HUDView.swift */; };
 		AA73C5351C4B85C100470B6C /* Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C5251C4B85C100470B6C /* Round.swift */; };
 		AA73C5361C4B85C100470B6C /* UIButton+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C5261C4B85C100470B6C /* UIButton+Factory.swift */; };
@@ -54,8 +52,6 @@
 		AA73C51F1C4B85C100470B6C /* GamePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GamePresenter.swift; path = Sources/GamePresenter.swift; sourceTree = "<group>"; };
 		AA73C5201C4B85C100470B6C /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameView.swift; path = Sources/GameView.swift; sourceTree = "<group>"; };
 		AA73C5211C4B85C100470B6C /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = Sources/GameViewController.swift; sourceTree = "<group>"; };
-		AA73C5221C4B85C100470B6C /* GameViewInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewInteractor.swift; path = Sources/GameViewInteractor.swift; sourceTree = "<group>"; };
-		AA73C5231C4B85C100470B6C /* GameViewModelBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewModelBinder.swift; path = Sources/GameViewModelBinder.swift; sourceTree = "<group>"; };
 		AA73C5241C4B85C100470B6C /* HUDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HUDView.swift; path = Sources/HUDView.swift; sourceTree = "<group>"; };
 		AA73C5251C4B85C100470B6C /* Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Round.swift; path = Sources/Round.swift; sourceTree = "<group>"; };
 		AA73C5261C4B85C100470B6C /* UIButton+Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIButton+Factory.swift"; path = "Sources/UIButton+Factory.swift"; sourceTree = "<group>"; };
@@ -140,8 +136,6 @@
 				AA73C51D1C4B85C100470B6C /* DataHandler.swift */,
 				AA73C52A1C4B85C100470B6C /* WordsHandler.swift */,
 				AA73C51F1C4B85C100470B6C /* GamePresenter.swift */,
-				AA73C5221C4B85C100470B6C /* GameViewInteractor.swift */,
-				AA73C5231C4B85C100470B6C /* GameViewModelBinder.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -389,11 +383,9 @@
 				AA73C52B1C4B85C100470B6C /* Array+Utilities.swift in Sources */,
 				AA888EBC1C4BA53600BD29E9 /* Bool+Utilities.swift in Sources */,
 				AA73C5371C4B85C100470B6C /* UIColor+Factory.swift in Sources */,
-				AA73C5331C4B85C100470B6C /* GameViewModelBinder.swift in Sources */,
 				AA73C53A1C4B85C100470B6C /* WordsHandler.swift in Sources */,
 				AA73C5311C4B85C100470B6C /* GameViewController.swift in Sources */,
 				AA73C5341C4B85C100470B6C /* HUDView.swift in Sources */,
-				AA73C5321C4B85C100470B6C /* GameViewInteractor.swift in Sources */,
 				AAD32D8E1C4B847500B2F6D7 /* AppDelegate.swift in Sources */,
 				AA7F66851C4B9807000E6A04 /* WordView.swift in Sources */,
 				AA73C52C1C4B85C100470B6C /* Countdown.swift in Sources */,

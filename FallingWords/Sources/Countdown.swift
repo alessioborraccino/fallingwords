@@ -9,9 +9,16 @@
 import Foundation
 import RxSwift
 
-class Countdown {
+protocol CountdownType {
+    var duration : Int { get }
+    var secondsLeft : Variable<Int> { get }
+    func restart()
+    func stop()
+}
 
-    let seconds = Variable<Int>(0)
+class Countdown : CountdownType {
+
+    let secondsLeft = Variable<Int>(0)
     let duration : Int
 
     private var timerDisposable : Disposable?
@@ -25,15 +32,15 @@ class Countdown {
     }
     
     private func start() {
-        self.seconds.value = duration
+        self.secondsLeft.value = duration
         let timer = Observable<Int>
             .interval(1, scheduler: ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Default))
             .takeWhile { (_) -> Bool in
-            return self.seconds.value > 0
+            return self.secondsLeft.value > 0
         }
 
-        timerDisposable = timer.subscribeNext { (_) -> Void in
-            self.seconds.value--
+        timerDisposable = timer.subscribeNext { [unowned self] (_) -> Void in
+            self.secondsLeft.value -= 1
         }
     }
 

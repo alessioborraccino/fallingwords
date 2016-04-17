@@ -16,10 +16,10 @@ extension Array {
         }
 
         let randomIndex = self.getRandomIndexInBounds()!
-        let randomElement = self[randomIndex]
-        let arrayWithoutRandomElement = self.arrayByRemovingElementAtIndex(randomIndex)
-        let secondElement = arrayWithoutRandomElement.getRandomElement()!
-        return (first: randomElement,second: secondElement)
+        let firstRandomElement = self[randomIndex]
+        let arrayWithoutFirstRandomElement = self.arrayByRemovingElementAtIndex(randomIndex)
+        let secondRandomElement = arrayWithoutFirstRandomElement.getRandomElement()!
+        return (first: firstRandomElement,second: secondRandomElement)
     }
 
     func arrayByRemovingElementAtIndex(index: Index) -> Array<Element> {

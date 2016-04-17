@@ -101,8 +101,8 @@ class GameView : UIView {
     private func trembleRepeatedAnimationGroupOfDuration(duration: Double) -> CAAnimationGroup {
         let trembleGroup: CAAnimationGroup = CAAnimationGroup()
         trembleGroup.animations = [
-            translateXRepeatableAnimationOfDistance(Int(UIUnit)),
-            rotateYRepeatableAnimationOfDistance(Int(UIUnit*5))
+            translateXRepeatableAnimationOfDistance(Int(UI.Unit)),
+            rotateYRepeatableAnimationOfDistance(Int(UI.Unit*5))
         ]
         trembleGroup.duration = 1
         trembleGroup.repeatCount = Float.infinity

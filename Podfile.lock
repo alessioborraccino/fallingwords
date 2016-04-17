@@ -1,16 +1,16 @@
 PODS:
-  - RxBlocking (2.0.0):
-    - RxSwift (~> 2.0)
-  - RxCocoa (2.0.0):
-    - RxSwift (~> 2.0)
-  - RxSwift (2.0.0)
-  - SnapKit (0.18.0)
+  - RxBlocking (2.4):
+    - RxSwift (~> 2.4)
+  - RxCocoa (2.4):
+    - RxSwift (~> 2.4)
+  - RxSwift (2.4)
+  - SnapKit (0.20.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - RxBlocking (~> 2.0.0-beta)
-  - RxCocoa (~> 2.0.0-beta)
-  - RxSwift (~> 2.0.0-beta)
+  - RxBlocking (~> 2.4)
+  - RxCocoa (~> 2.4)
+  - RxSwift (~> 2.4)
   - SnapKit
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -20,16 +20,14 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: 929539eb6a3304eaa9153ca44041a78b85bf2ee5
+    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  RxBlocking: a95a10ed54eb5d116f6c9a87047ff671e181d07b
-  RxCocoa: b0ebd70b4f7450bdb3c8987b122f8fd568dc1e2f
-  RxSwift: d83246efa6f16c50c143bec134649d045498f601
-  SnapKit: e1f090a6d47b1dd4bd89b73f72b6746a7835ef3c
+  RxBlocking: 1226c1fa0ca1e0ca5f964d4330ca3649f2128680
+  RxCocoa: 7d6cd877de99f5640306b3d6cf87f580c1d91b61
+  RxSwift: 67b9ef4e8b34fb394e200e754c6a09cc16559f94
+  SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 71b9e5d399558f11a74772a0e4c4a9d0012cfa64
-
-COCOAPODS: 1.0.0.beta.2
+COCOAPODS: 0.39.0

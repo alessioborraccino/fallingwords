@@ -14,9 +14,13 @@ enum DataHandlerError: ErrorType {
     case DataNotParsed
 }
 
-class DataHandler {
+protocol DataHandlerType {
+    func jsonDataFromFileNamed(name: String) throws -> JSON
+}
 
-    class func jsonDataFromFileNamed(name: String) throws -> JSON {
+class DataHandler : DataHandlerType {
+
+    func jsonDataFromFileNamed(name: String) throws -> JSON {
         do {
             guard let path = NSBundle.mainBundle().pathForResource(name, ofType: "json") else {
                 throw DataHandlerError.PathNotFound
