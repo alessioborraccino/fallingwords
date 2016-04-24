@@ -44,7 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func buildNavigationStack() -> UIViewController {
-        let gameViewController = GameViewController()
+
+        let gamePresenter = GamePresenter(languageOne: .English, languageTwo: .Spanish)
+
+        let gameViewController = GameViewController(gamePresenter: gamePresenter)
         let navigationController = UINavigationController(rootViewController: gameViewController)
         navigationController.navigationBar.translucent = false
         navigationController.navigationBar.barTintColor = UIColor.mainGameColor()

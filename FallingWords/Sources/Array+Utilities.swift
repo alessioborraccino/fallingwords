@@ -8,21 +8,9 @@
 
 import Foundation
 
-extension Array {
+extension RangeReplaceableCollectionType where Index : RandomAccessIndexType {
 
-    func getRandomTwoElements() -> (first: Element, second: Element)? {
-        guard self.count >= 2 else {
-            return nil
-        }
-
-        let randomIndex = self.getRandomIndexInBounds()!
-        let firstRandomElement = self[randomIndex]
-        let arrayWithoutFirstRandomElement = self.arrayByRemovingElementAtIndex(randomIndex)
-        let secondRandomElement = arrayWithoutFirstRandomElement.getRandomElement()!
-        return (first: firstRandomElement,second: secondRandomElement)
-    }
-
-    func arrayByRemovingElementAtIndex(index: Index) -> Array<Element> {
+    func arrayByRemovingElementAtIndex(index: Index) -> Self  {
         var copy = self
         copy.removeAtIndex(index)
         return copy
@@ -32,10 +20,12 @@ extension Array {
         guard !self.isEmpty else {
             return nil
         }
-        return Int(arc4random_uniform(UInt32(self.count)))
+     
+      let randomDistance = Index.Distance(arc4random_uniform(UInt32(count.toIntMax())).toIntMax())
+      return startIndex.advancedBy(randomDistance)
     }
 
-    func getRandomElement() -> Element? {
+    func getRandomElement() -> Generator.Element? {
         guard let index = getRandomIndexInBounds() else {
             return nil
         }

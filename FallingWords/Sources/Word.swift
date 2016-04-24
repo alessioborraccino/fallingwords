@@ -25,11 +25,11 @@ class Word : TranslatedWordType {
         return translations[language]
     }
 
-    init(translations: [WordLanguage : String]) {
+    private init(translations: [WordLanguage : String]) {
         self.translations = translations
     }
 
-    convenience init(translationsJson: JSON) {
+     convenience init(translationsJson: JSON) {
         var translations : [WordLanguage : String] = [WordLanguage : String]()
         for (language,translation):(String, JSON) in translationsJson {
             if let wordLanguage = WordLanguage(rawValue: language) {

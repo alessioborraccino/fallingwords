@@ -10,7 +10,7 @@ import Foundation
 
 extension Bool {
 
-    static func randomBool() -> Bool {
+    static func random() -> Bool {
         let index = Int(arc4random_uniform(UInt32(2)))
         return index == 1
     }

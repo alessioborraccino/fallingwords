@@ -25,17 +25,19 @@ class Round : RoundType {
     let optionStringGiven: String
     let expectedInput: RoundInput
 
-    init(stringToGuess: String, optionStringGiven: String, expectedInput: RoundInput) {
+    private init(stringToGuess: String, optionStringGiven: String, expectedInput: RoundInput) {
         self.stringToGuess = stringToGuess
         self.optionStringGiven = optionStringGiven
         self.expectedInput = expectedInput
     }
 
-    convenience init?(randomFromWords words: [TranslatedWordType], forLanguageOne languageOne: WordLanguage, andLanguageTwo languageTwo: WordLanguage) {
+    convenience init?(fromWords words: [TranslatedWordType], forLanguageOne languageOne: WordLanguage, languageTwo: WordLanguage,
+                                boolGenerator: BoolGeneratorType = RandomBoolGenerator(),
+                                wordsSampler: WordsSamplerType = RandomWordsSampler()) {
 
-        if let wordTuple = words.getRandomTwoElements() {
+      if let wordTuple = wordsSampler.getTwoWordsFromWordArray(words) {
             if let stringToGuess = wordTuple.first[languageOne], correctOption = wordTuple.first[languageTwo], wrongOption = wordTuple.second[languageTwo] {
-                let willGiveCorrectOption = Bool.randomBool()
+                let willGiveCorrectOption = boolGenerator.next()
                 let option : String = willGiveCorrectOption ? correctOption : wrongOption
                 let input : RoundInput = willGiveCorrectOption ? .CorrectButtonTapped : .WrongButtonTapped
                 self.init(stringToGuess: stringToGuess, optionStringGiven: option, expectedInput: input)

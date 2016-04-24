@@ -10,21 +10,25 @@ import Foundation
 import RxSwift
 
 protocol CountdownType {
-    var duration : Int { get }
-    var secondsLeft : Variable<Int> { get }
+    var totalTicks : Int { get }
+    var tickDuration : Double { get }
+    var ticksLeft : Variable<Int> { get }
     func restart()
     func stop()
 }
 
 class Countdown : CountdownType {
 
-    let secondsLeft = Variable<Int>(0)
-    let duration : Int
+    let totalTicks : Int
+    let tickDuration : Double
+    let ticksLeft : Variable<Int>
 
     private var timerDisposable : Disposable?
 
-    init(duration: Int) {
-        self.duration = duration
+    init(totalTicks: Int, tickDuration: Double = 1) {
+        self.totalTicks = totalTicks
+        self.ticksLeft = Variable<Int>(totalTicks)
+        self.tickDuration = tickDuration
     }
 
     deinit {
@@ -32,15 +36,15 @@ class Countdown : CountdownType {
     }
     
     private func start() {
-        self.secondsLeft.value = duration
+        self.ticksLeft.value = totalTicks
         let timer = Observable<Int>
-            .interval(1, scheduler: ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Default))
+            .interval(tickDuration, scheduler: ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Default))
             .takeWhile { (_) -> Bool in
-            return self.secondsLeft.value > 0
+            return self.ticksLeft.value > 0
         }
 
         timerDisposable = timer.subscribeNext { [unowned self] (_) -> Void in
-            self.secondsLeft.value -= 1
+            self.ticksLeft.value -= 1
         }
     }
 

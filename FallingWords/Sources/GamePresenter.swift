@@ -26,21 +26,28 @@ protocol GameViewInteractorType {
 
 class GamePresenter : GameViewModelType, GameViewInteractorType {
 
-    private let game : protocol<GameWithRoundsType, HasCountdownType>
+    private let game : protocol<GameType, HasCountdownType, HasRoundsType>
 
-    init(languageOne: WordLanguage, languageTwo:WordLanguage, wordsHandler: WordsHandlerType = WordsHandler(dataHandler: DataHandler())) {
-        self.game = Game(wordsHandler: wordsHandler, languageOne: languageOne, languageTwo: languageTwo)
+    init(languageOne: WordLanguage,
+         languageTwo: WordLanguage,
+         wordsHandler: WordsHandlerType = WordsHandler(dataHandler: DataHandler()),
+         countDown: CountdownType = Countdown(totalTicks: Game.defaultRoundDuration),
+         roundFactory: RoundFactoryType = RoundFactory()) {
+        self.game = Game(languageOne: languageOne, languageTwo: languageTwo,
+                         wordsHandler: wordsHandler,
+                         countDown: countDown,
+                         roundFactory: roundFactory)
     }
 
     // MARK: From Game To ViewController (ViewModel)
 
-    func scoreText() -> Observable<String> {
-        return game.countdown.secondsLeft.asObservable().map { (seconds) -> String in
+    func countDownText() -> Observable<String> {
+        return game.countdown.ticksLeft.asObservable().map { (seconds) -> String in
             return "Time Left: " + String(seconds)
         }
     }
 
-    func countDownText() -> Observable<String> {
+    func scoreText() -> Observable<String> {
         return game.score.asObservable().map { (score) -> String in
             return "Score: " + String(score)
         }
@@ -86,7 +93,7 @@ class GamePresenter : GameViewModelType, GameViewInteractorType {
     }
 
     func roundDuration() -> Int {
-        return game.countdown.duration
+        return game.countdown.totalTicks
     }
 
     // MARK: From ViewController to Game (ViewInteractor)

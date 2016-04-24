@@ -13,7 +13,7 @@ import RxCocoa
 
 class GameViewController: UIViewController {
 
-    private var gamePresenter : protocol<GameViewInteractorType,GameViewModelType>?
+    private let gamePresenter : protocol<GameViewInteractorType,GameViewModelType>
 
     private lazy var startButton : UIButton = {
         let button = UIButton.mainGameButton()
@@ -40,25 +40,33 @@ class GameViewController: UIViewController {
 
     // MARK: View Methods
 
+    init(gamePresenter: protocol<GameViewInteractorType,GameViewModelType>) {
+        self.gamePresenter = gamePresenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Falling Words"
-        self.view.backgroundColor = UIColor.mainGameColor()
+        title = "Falling Words"
+        view.backgroundColor = UIColor.mainGameColor()
 
-        self.view.addSubview(hudView)
-        self.view.addSubview(wordView)
-        self.view.addSubview(gameView)
-        self.view.addSubview(startButton)
-        self.view.addSubview(correctButton)
-        self.view.addSubview(wrongButton)
+        view.addSubview(hudView)
+        view.addSubview(wordView)
+        view.addSubview(gameView)
+        view.addSubview(startButton)
+        view.addSubview(correctButton)
+        view.addSubview(wrongButton)
 
         setDefaultConstraints()
         setMenuLayout()
 
-        self.gamePresenter = GamePresenter(languageOne: .English, languageTwo: .Spanish)
-        self.bindViewModel(self.gamePresenter!)
-        self.bindInteractor(self.gamePresenter!)
+        bindViewModel(gamePresenter)
+        bindInteractor(gamePresenter)
     }
 
     private func setDefaultConstraints() {

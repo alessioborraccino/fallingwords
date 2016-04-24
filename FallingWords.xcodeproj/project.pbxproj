@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5EC60BEE18CA9348F8495F75 /* Pods_FallingWords.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3711706F35F760A9CAD8514E /* Pods_FallingWords.framework */; };
+		AA24B81C1CC828D200172729 /* WordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA24B81B1CC828D200172729 /* WordTests.swift */; };
+		AA24B81E1CC82A3900172729 /* RoundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA24B81D1CC82A3900172729 /* RoundTests.swift */; };
+		AA24B8201CC82FE100172729 /* RandomBoolGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA24B81F1CC82FE100172729 /* RandomBoolGenerator.swift */; };
 		AA73C52B1C4B85C100470B6C /* Array+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C51B1C4B85C100470B6C /* Array+Utilities.swift */; };
 		AA73C52C1C4B85C100470B6C /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C51C1C4B85C100470B6C /* Countdown.swift */; };
 		AA73C52D1C4B85C100470B6C /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C51D1C4B85C100470B6C /* DataHandler.swift */; };
@@ -24,11 +27,18 @@
 		AA73C53A1C4B85C100470B6C /* WordsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C52A1C4B85C100470B6C /* WordsHandler.swift */; };
 		AA7F66831C4B8756000E6A04 /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = AA7F66821C4B8756000E6A04 /* words.json */; };
 		AA7F66851C4B9807000E6A04 /* WordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7F66841C4B9807000E6A04 /* WordView.swift */; };
+		AA828CDB1CC93A75005D9BE6 /* ConstantBoolGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA828CDA1CC93A74005D9BE6 /* ConstantBoolGenerator.swift */; };
+		AA828CDD1CC93C08005D9BE6 /* RandomWordsSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA828CDC1CC93C08005D9BE6 /* RandomWordsSampler.swift */; };
+		AA828CDF1CCD2489005D9BE6 /* ConstantWordSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA828CDE1CCD2489005D9BE6 /* ConstantWordSampler.swift */; };
+		AA828CE51CCD28F7005D9BE6 /* WordsHandlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA828CE41CCD28F7005D9BE6 /* WordsHandlerMock.swift */; };
+		AA828CE71CCD2A6D005D9BE6 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA828CE61CCD2A6D005D9BE6 /* GameTests.swift */; };
+		AA828CEA1CCD3109005D9BE6 /* RoundFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA828CE91CCD3109005D9BE6 /* RoundFactory.swift */; };
+		AA828CED1CCD3C3F005D9BE6 /* GamePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA828CEC1CCD3C3E005D9BE6 /* GamePresenterTests.swift */; };
 		AA888EBC1C4BA53600BD29E9 /* Bool+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888EBB1C4BA53600BD29E9 /* Bool+Utilities.swift */; };
 		AAD32D8E1C4B847500B2F6D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD32D8D1C4B847500B2F6D7 /* AppDelegate.swift */; };
 		AAD32D951C4B847500B2F6D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD32D941C4B847500B2F6D7 /* Assets.xcassets */; };
 		AAD32D981C4B847500B2F6D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAD32D961C4B847500B2F6D7 /* LaunchScreen.storyboard */; };
-		AAD32DA31C4B847600B2F6D7 /* FallingWordsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD32DA21C4B847600B2F6D7 /* FallingWordsTests.swift */; };
+		AAD32DA31C4B847600B2F6D7 /* CountdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD32DA21C4B847600B2F6D7 /* CountdownTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +55,9 @@
 		2CA7418ED72A6F684FE6F81B /* Pods-FallingWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FallingWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-FallingWords/Pods-FallingWords.release.xcconfig"; sourceTree = "<group>"; };
 		3711706F35F760A9CAD8514E /* Pods_FallingWords.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FallingWords.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5055A475AAA3A2B45FEF9CC1 /* Pods-FallingWords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FallingWords.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FallingWords/Pods-FallingWords.debug.xcconfig"; sourceTree = "<group>"; };
+		AA24B81B1CC828D200172729 /* WordTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordTests.swift; sourceTree = "<group>"; };
+		AA24B81D1CC82A3900172729 /* RoundTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTests.swift; sourceTree = "<group>"; };
+		AA24B81F1CC82FE100172729 /* RandomBoolGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RandomBoolGenerator.swift; path = Sources/RandomBoolGenerator.swift; sourceTree = "<group>"; };
 		AA73C51B1C4B85C100470B6C /* Array+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Utilities.swift"; path = "Sources/Array+Utilities.swift"; sourceTree = "<group>"; };
 		AA73C51C1C4B85C100470B6C /* Countdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Countdown.swift; path = Sources/Countdown.swift; sourceTree = "<group>"; };
 		AA73C51D1C4B85C100470B6C /* DataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataHandler.swift; path = Sources/DataHandler.swift; sourceTree = "<group>"; };
@@ -61,6 +74,13 @@
 		AA73C52A1C4B85C100470B6C /* WordsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordsHandler.swift; path = Sources/WordsHandler.swift; sourceTree = "<group>"; };
 		AA7F66821C4B8756000E6A04 /* words.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = words.json; path = Resources/words.json; sourceTree = "<group>"; };
 		AA7F66841C4B9807000E6A04 /* WordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordView.swift; sourceTree = "<group>"; };
+		AA828CDA1CC93A74005D9BE6 /* ConstantBoolGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantBoolGenerator.swift; sourceTree = "<group>"; };
+		AA828CDC1CC93C08005D9BE6 /* RandomWordsSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RandomWordsSampler.swift; path = Sources/RandomWordsSampler.swift; sourceTree = "<group>"; };
+		AA828CDE1CCD2489005D9BE6 /* ConstantWordSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantWordSampler.swift; sourceTree = "<group>"; };
+		AA828CE41CCD28F7005D9BE6 /* WordsHandlerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsHandlerMock.swift; sourceTree = "<group>"; };
+		AA828CE61CCD2A6D005D9BE6 /* GameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
+		AA828CE91CCD3109005D9BE6 /* RoundFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundFactory.swift; path = Sources/RoundFactory.swift; sourceTree = "<group>"; };
+		AA828CEC1CCD3C3E005D9BE6 /* GamePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePresenterTests.swift; sourceTree = "<group>"; };
 		AA888EBB1C4BA53600BD29E9 /* Bool+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Utilities.swift"; sourceTree = "<group>"; };
 		AAD32D8A1C4B847500B2F6D7 /* FallingWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FallingWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD32D8D1C4B847500B2F6D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +88,7 @@
 		AAD32D971C4B847500B2F6D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAD32D991C4B847500B2F6D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAD32D9E1C4B847600B2F6D7 /* FallingWordsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FallingWordsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAD32DA21C4B847600B2F6D7 /* FallingWordsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingWordsTests.swift; sourceTree = "<group>"; };
+		AAD32DA21C4B847600B2F6D7 /* CountdownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTests.swift; sourceTree = "<group>"; };
 		AAD32DA41C4B847600B2F6D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +156,9 @@
 				AA73C51D1C4B85C100470B6C /* DataHandler.swift */,
 				AA73C52A1C4B85C100470B6C /* WordsHandler.swift */,
 				AA73C51F1C4B85C100470B6C /* GamePresenter.swift */,
+				AA24B81F1CC82FE100172729 /* RandomBoolGenerator.swift */,
+				AA828CDC1CC93C08005D9BE6 /* RandomWordsSampler.swift */,
+				AA828CE91CCD3109005D9BE6 /* RoundFactory.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -167,6 +190,35 @@
 				AAD32D961C4B847500B2F6D7 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		AA828CE01CCD26E6005D9BE6 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AA828CDA1CC93A74005D9BE6 /* ConstantBoolGenerator.swift */,
+				AA828CDE1CCD2489005D9BE6 /* ConstantWordSampler.swift */,
+				AA828CE41CCD28F7005D9BE6 /* WordsHandlerMock.swift */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
+		AA828CE11CCD26F3005D9BE6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AAD32DA21C4B847600B2F6D7 /* CountdownTests.swift */,
+				AA24B81B1CC828D200172729 /* WordTests.swift */,
+				AA24B81D1CC82A3900172729 /* RoundTests.swift */,
+				AA828CE61CCD2A6D005D9BE6 /* GameTests.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		AA828CEB1CCD3C24005D9BE6 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				AA828CEC1CCD3C3E005D9BE6 /* GamePresenterTests.swift */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 		AAD32D811C4B847500B2F6D7 = {
@@ -202,7 +254,9 @@
 		AAD32DA11C4B847600B2F6D7 /* FallingWordsTests */ = {
 			isa = PBXGroup;
 			children = (
-				AAD32DA21C4B847600B2F6D7 /* FallingWordsTests.swift */,
+				AA828CEB1CCD3C24005D9BE6 /* Helper */,
+				AA828CE11CCD26F3005D9BE6 /* Model */,
+				AA828CE01CCD26E6005D9BE6 /* Mocks */,
 				AAD32DA41C4B847600B2F6D7 /* Info.plist */,
 			);
 			path = FallingWordsTests;
@@ -378,11 +432,14 @@
 				AA73C5391C4B85C100470B6C /* Word.swift in Sources */,
 				AA73C52D1C4B85C100470B6C /* DataHandler.swift in Sources */,
 				AA73C5381C4B85C100470B6C /* UIConstants.swift in Sources */,
+				AA24B8201CC82FE100172729 /* RandomBoolGenerator.swift in Sources */,
+				AA828CEA1CCD3109005D9BE6 /* RoundFactory.swift in Sources */,
 				AA73C52E1C4B85C100470B6C /* Game.swift in Sources */,
 				AA73C52F1C4B85C100470B6C /* GamePresenter.swift in Sources */,
 				AA73C52B1C4B85C100470B6C /* Array+Utilities.swift in Sources */,
 				AA888EBC1C4BA53600BD29E9 /* Bool+Utilities.swift in Sources */,
 				AA73C5371C4B85C100470B6C /* UIColor+Factory.swift in Sources */,
+				AA828CDD1CC93C08005D9BE6 /* RandomWordsSampler.swift in Sources */,
 				AA73C53A1C4B85C100470B6C /* WordsHandler.swift in Sources */,
 				AA73C5311C4B85C100470B6C /* GameViewController.swift in Sources */,
 				AA73C5341C4B85C100470B6C /* HUDView.swift in Sources */,
@@ -398,7 +455,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAD32DA31C4B847600B2F6D7 /* FallingWordsTests.swift in Sources */,
+				AA828CED1CCD3C3F005D9BE6 /* GamePresenterTests.swift in Sources */,
+				AA828CE71CCD2A6D005D9BE6 /* GameTests.swift in Sources */,
+				AA24B81E1CC82A3900172729 /* RoundTests.swift in Sources */,
+				AA828CE51CCD28F7005D9BE6 /* WordsHandlerMock.swift in Sources */,
+				AAD32DA31C4B847600B2F6D7 /* CountdownTests.swift in Sources */,
+				AA24B81C1CC828D200172729 /* WordTests.swift in Sources */,
+				AA828CDF1CCD2489005D9BE6 /* ConstantWordSampler.swift in Sources */,
+				AA828CDB1CC93A75005D9BE6 /* ConstantBoolGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

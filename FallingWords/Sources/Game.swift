@@ -14,25 +14,27 @@ enum RoundResult {
     case Lost
 }
 
-protocol GameWithRoundsType {
+protocol GameType {
     var score : Variable<Int> { get }
-    var currentRound : Variable<RoundType?> { get }
-
-    var didRoundEndWithResultObservable : Observable<RoundResult> { get }
     var didGameEndWithScoreObservable : Observable<Int> { get }
-
     func start()
-    func endRoundWithInput(input: RoundInput)
 }
 
 protocol HasCountdownType {
     var countdown : CountdownType { get }
 }
 
-class Game : GameWithRoundsType, HasCountdownType {
+protocol HasRoundsType {
+    var currentRound : Variable<RoundType?> { get }
+    var didRoundEndWithResultObservable : Observable<RoundResult> { get }
+    func endRoundWithInput(input: RoundInput)
+    func nextRound() -> RoundType?
+}
 
-    private static let defaultRoundDuration = 5
-    private static let correctWordScore = 5
+class Game : GameType, HasCountdownType, HasRoundsType {
+
+    static let defaultRoundDuration = 5
+    static let correctWordScore = 5
 
     private let words : [TranslatedWordType]
     private let languageOne : WordLanguage
@@ -42,6 +44,7 @@ class Game : GameWithRoundsType, HasCountdownType {
     let countdown : CountdownType
     let currentRound : Variable<RoundType?>
 
+    private let roundFactory : RoundFactoryType
     private let roundEndedSubject : PublishSubject<RoundResult>
     private let gameOverSubject : PublishSubject<Int>
 
@@ -54,14 +57,18 @@ class Game : GameWithRoundsType, HasCountdownType {
     
     private let disposeBag = DisposeBag()
     
-    init(wordsHandler: WordsHandlerType, languageOne: WordLanguage, languageTwo:WordLanguage, roundDuration:Int = Game.defaultRoundDuration) {
+    init(languageOne: WordLanguage, languageTwo:WordLanguage,
+         wordsHandler: WordsHandlerType,
+         countDown: CountdownType = Countdown(totalTicks: Game.defaultRoundDuration),
+         roundFactory: RoundFactoryType = RoundFactory()) {
 
+        self.roundFactory = roundFactory
         self.gameOverSubject = PublishSubject<Int>()
         self.roundEndedSubject = PublishSubject<RoundResult>()
 
         self.languageOne = languageOne
         self.languageTwo = languageTwo
-        self.countdown = Countdown(duration: roundDuration)
+        self.countdown = countDown
 
         self.words = wordsHandler.wordsWithLanguageOne(languageOne, andLanguageTwo: languageTwo)
         self.score = Variable<Int>(0)
@@ -79,6 +86,10 @@ class Game : GameWithRoundsType, HasCountdownType {
         let result = roundResultWithInput(input)
         self.updateScoreWithResult(result)
         self.roundEndedSubject.onNext(result)
+    }
+
+    func nextRound() -> RoundType? {
+        return roundFactory.newRoundWithWords(words, languageOne: languageOne, languageTwo: languageTwo)
     }
 
     private func setRules() {
@@ -100,8 +111,7 @@ class Game : GameWithRoundsType, HasCountdownType {
     }
 
     private func startNewRound() {
-        let newRound = Round(randomFromWords: words, forLanguageOne: languageOne, andLanguageTwo: languageTwo)
-        self.currentRound.value = newRound
+        self.currentRound.value = nextRound()
         self.countdown.restart()
     }
 
@@ -122,7 +132,7 @@ class Game : GameWithRoundsType, HasCountdownType {
     // MARK: Helpers
 
     private func countdownEndObservable() -> Observable<Bool> {
-        return self.countdown.secondsLeft.asObservable().filter { seconds -> Bool in
+        return self.countdown.ticksLeft.asObservable().filter { seconds -> Bool in
             return seconds == 0
         }.map { (_) -> Bool in
             return true
